@@ -1,0 +1,680 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Georgia, "Times New Roman", serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    padding: 20px;
+}
+
+
+/* Opening screen */
+
+.container {
+    text-align: center;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 1.2rem;
+}
+
+#giftButton {
+    font-size: 7rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 30px;
+
+    animation: giftFloat 2s ease-in-out infinite;
+}
+
+#giftButton:hover {
+    transform: scale(1.2);
+}
+
+.tap-text {
+    margin-top: 10px;
+
+    opacity: 0.7;
+
+    animation:
+        openingText 1s ease-out 0.5s both,
+        tapPulse 2s ease-in-out 1.5s infinite;
+}
+
+@keyframes tapPulse {
+
+    0%, 100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 0.9;
+    }
+}
+
+
+/* Hidden elements */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* Memories */
+
+#memorySection {
+    text-align: center;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#memorySection h1 {
+    margin-bottom: 25px;
+}
+
+#memoryImage {
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+
+    border-radius: 20px;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+#memoryText {
+    margin-top: 15px;
+}
+
+
+/* Next button */
+
+#nextButton {
+    margin-top: 25px;
+
+    padding: 14px 32px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: linear-gradient(135deg, #ff4f81, #ff758c);
+
+    color: white;
+
+    font-size: 1.1rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(255, 79, 129, 0.3);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#nextButton:hover {
+    transform: translateY(-3px) scale(1.05);
+
+    box-shadow: 0 12px 25px rgba(255, 79, 129, 0.4);
+}
+
+#nextButton:active {
+    transform: scale(0.96);
+}
+
+
+/* Envelope */
+
+#letterSection {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#letterButton {
+    font-size: 5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    animation: envelopeFloat 2s ease-in-out infinite;
+}
+
+#letterButton:hover {
+    filter: brightness(1.1);
+}
+
+
+/* Letter page */
+
+#letterPage {
+    position: fixed;
+    inset: 0;
+
+    min-height: 100vh;
+
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 30px 15px;
+
+    overflow-y: auto;
+
+    z-index: 100;
+}
+
+
+/* Paper */
+
+.paper {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 500px;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 200, 210, 0.15),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(255, 180, 200, 0.12),
+            transparent 25%
+        ),
+        #fffaf0;
+
+    padding: 40px 30px;
+
+    margin-bottom: 30px;
+
+    border-radius: 4px;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+
+    transform: rotate(-1deg);
+
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.paper h2 {
+    text-align: center;
+
+    margin-bottom: 25px;
+
+    font-size: 2rem;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-style: italic;
+}
+
+.paper p {
+    line-height: 1.9;
+
+    font-size: 1.1rem;
+}
+.paper .highlight {
+    text-align: center;
+
+    font-size: 1.25rem;
+
+    font-weight: bold;
+
+    color: #e75480;
+
+    background: rgba(255, 182, 193, 0.18);
+
+    padding: 15px 12px;
+
+    margin: 25px 0;
+
+    border-radius: 15px;
+
+    border-left: 4px solid #ff758c;
+    border-right: 4px solid #ff758c;
+
+    box-shadow: 0 5px 15px rgba(255, 117, 140, 0.12);
+
+    animation: highlightGlow 3s ease-in-out infinite;
+}
+
+/* Letter animation */
+
+@keyframes letterAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(70px)
+            rotate(-4deg)
+            scale(0.92);
+    }
+
+    60% {
+        opacity: 1;
+
+        transform:
+            translateY(-5px)
+            rotate(-1.5deg)
+            scale(1.01);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            rotate(-1deg)
+            scale(1);
+    }
+}
+
+#letterPage:not(.hidden) .paper {
+    animation: letterAppear 1s ease-out;
+}
+
+
+/* Memory animation */
+
+@keyframes memoryAppear {
+
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.memory-animation {
+    animation: memoryAppear 0.6s ease;
+}
+
+@keyframes memoryAppear {
+    from {
+        opacity: 0;
+        transform: translateX(35px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+
+/* Gift animation */
+
+@keyframes giftFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+/* Envelope animation */
+
+@keyframes envelopeFloat {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+
+/* Floating hearts around the letter */
+
+.floating-heart {
+    position: fixed;
+
+    font-size: 6rem;
+
+    opacity: 0.45;
+
+    filter: blur(1px);
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    animation: heartFloat 4s ease-in-out infinite;
+}
+
+
+/* Different heart positions */
+
+.heart1 {
+    top: 8%;
+    left: 8%;
+    animation-delay: 0s;
+}
+
+.heart2 {
+    top: 20%;
+    right: 7%;
+    animation-delay: 1s;
+}
+
+.heart3 {
+    top: 48%;
+    left: 5%;
+    animation-delay: 2s;
+}
+
+.heart4 {
+    top: 65%;
+    right: 6%;
+    animation-delay: 0.5s;
+}
+
+.heart5 {
+    top: 82%;
+    left: 10%;
+
+    font-size: 1.5rem;
+
+    animation-delay: 1.5s;
+}
+
+.heart6 {
+    top: 88%;
+    right: 12%;
+
+    font-size: 1.8rem;
+
+    animation-delay: 2.5s;
+}
+.heart5 {
+    top: 82%;
+    left: 10%;
+    font-size: 3rem;
+    animation-delay: 1.5s;
+}
+
+.heart6 {
+    top: 88%;
+    right: 12%;
+    font-size: 3.6rem;
+    animation-delay: 2.5s;
+}
+
+
+/* Floating heart movement */
+
+@keyframes heartFloat {
+
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(8deg);
+    }
+}
+@keyframes highlightGlow {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+}
+.anniversary-badge {
+    width: fit-content;
+    margin: 0 auto 25px;
+
+    padding: 8px 18px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 117, 140, 0.15);
+
+    color: #e75480;
+
+    font-size: 0.9rem;
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    border: 1px solid rgba(231, 84, 128, 0.2);
+}
+.signature {
+    text-align: right;
+
+    margin-top: 35px;
+
+    font-size: 1rem;
+
+    font-style: italic;
+
+    color: #777;
+}
+
+.signature span {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    font-size: 1.5rem;
+
+    font-weight: bold;
+
+    font-style: italic;
+
+    color: #e75480;
+
+    transform: rotate(-3deg);
+}
+.ending {
+    text-align: center;
+
+    margin-top: 35px;
+
+    font-weight: bold;
+
+    font-size: 1.3rem !important;
+
+    color: #e75480;
+
+    animation: endingPulse 2s ease-in-out infinite;
+}
+
+@keyframes endingPulse {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.04);
+    }
+}
+/* Section transitions */
+
+#memorySection:not(.hidden) {
+    animation: sectionFadeIn 0.8s ease-out;
+}
+
+@keyframes sectionFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Section transitions */
+
+#memorySection:not(.hidden) {
+    animation: sectionFadeIn 0.8s ease-out;
+}
+
+@keyframes sectionFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#letterSection:not(.hidden) {
+    animation: envelopeAppear 0.8s ease-out;
+}
+
+@keyframes envelopeAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+/* Page transition */
+
+#transitionOverlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 999;
+
+    transition: opacity 0.4s ease;
+}
+
+#transitionOverlay.active {
+    opacity: 1;
+}
+/* Opening animation */
+
+.container h1 {
+    animation: openingText 1s ease-out;
+}
+
+.container > p {
+    animation: openingText 1s ease-out 0.2s both;
+}
+
+.tap-text {
+    animation: openingText 1s ease-out 0.5s both;
+}
+
+@keyframes openingText {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#giftButton {
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.7),
+        0 0 25px rgba(255, 105, 135, 0.4);
+}
+.little-hearts {
+    text-align: center;
+
+    margin: -10px 0 25px;
+
+    font-size: 1.1rem;
+
+    letter-spacing: 8px;
+
+    color: #e75480;
+
+    opacity: 0.7;
+}
+
+/* Extra space for hearts on small phones */
+
+@media (max-width: 380px) {
+
+    #letterPage {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .paper {
+        width: calc(100% - 50px);
+        max-width: 300px;
+    }
+
+    .floating-heart {
+        font-size: 3rem;
+    }
+
+    .heart1 {
+        left: 1%;
+    }
+
+    .heart2 {
+        right: 1%;
+    }
+
+    .heart3 {
+        left: 1%;
+    }
+
+    .heart4 {
+        right: 1%;
+    }
+
+    .heart5 {
+        left: 2%;
+    }
+
+    .heart6 {
+        right: 2%;
+    }
+}
